@@ -35,7 +35,13 @@ namespace XamarinVideoRecorder
 
 		public EventHandler OnStartRecording;
 		public EventHandler OnStopRecording;
+		public EventHandler OnStartPreviewing;
+		public EventHandler OnStopPreviewing;
 
+		public bool IsPreviewing { get; set; }
+		public bool IsRecording { get; set; }
+
+		//Start recording
 		public void StartRecording()
 		{
 			if (OnStartRecording != null)
@@ -44,6 +50,7 @@ namespace XamarinVideoRecorder
 			}
 		}
 
+		//Stop recording
 		public void StopRecording()
 		{
 			if (OnStopRecording != null)
@@ -52,5 +59,22 @@ namespace XamarinVideoRecorder
 			}
 		}
 
+		//Start previewing
+		public void StartPreviewing()
+		{
+			if (OnStartPreviewing != null)
+			{
+				OnStartPreviewing(this, new EventArgs());
+			}
+		}
+
+		//Stop previewing
+		public void StopPreviewing()
+		{
+			if (OnStopPreviewing != null)
+			{
+				OnStopPreviewing(this, new EventArgs());
+			}
+		}
 	}
 }

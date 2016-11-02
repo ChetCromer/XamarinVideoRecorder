@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ContentPage
-		xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:XamarinVideoRecorder" x:Class="XamarinVideoRecorder.XamarinVideoRecorderPage">
-	<local:VideoRecorder x:Name="video"/>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:XamarinVideoRecorder" x:Class="XamarinVideoRecorder.XamarinVideoRecorderPage">
+	<StackLayout VerticalOptions="FillAndExpand">
+		<StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+			<Button Text="Start Preview" Clicked="Handle_StartPreviewing" />
+			<Button Text="Start Record" Clicked="Handle_StartRecording" />
+			<Button Text="Stop Record" Clicked="Handle_StopRecording" />
+			<Button Text="Stop Preview" Clicked="Handle_StopPreviewing" />
+		</StackLayout>
+		<local:VideoRecorder x:Name="video" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+	</StackLayout>
 </ContentPage>
