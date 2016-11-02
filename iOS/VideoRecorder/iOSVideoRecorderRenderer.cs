@@ -1,16 +1,15 @@
 ﻿using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Xamarin.Forms.Platform.iOS;
 using XamarinVideoRecorder;
-using XamarinVideoRecorder.Droid;
-using Android.Hardware;
+using XamarinVideoRecorder.iOS;
 
-[assembly: ExportRenderer(typeof(VideoRecorder), typeof(VideoRecorderRenderer))]
-namespace XamarinVideoRecorder.Droid
+[assembly: ExportRenderer(typeof(VideoRecorder), typeof(iOSVideoRecorderRenderer))]
+namespace XamarinVideoRecorder.iOS
 {
-	public class VideoRecorderRenderer : ViewRenderer<VideoRecorder, AndroidVideoRecorder>
+	public class iOSVideoRecorderRenderer : ViewRenderer<VideoRecorder, iOSVideoRecorder>
 	{
-		AndroidVideoRecorder recorder;
+		iOSVideoRecorder recorder;
 
 		protected override void OnElementChanged(ElementChangedEventArgs<VideoRecorder> e)
 		{
@@ -18,7 +17,7 @@ namespace XamarinVideoRecorder.Droid
 
 			if (Control == null)
 			{
-				recorder = new AndroidVideoRecorder(Context, e.NewElement,e.NewElement.Camera,e.NewElement.Orientation);
+				recorder = new iOSVideoRecorder( e.NewElement, e.NewElement.Camera, e.NewElement.Orientation);
 				SetNativeControl(recorder);
 			}
 
@@ -29,7 +28,7 @@ namespace XamarinVideoRecorder.Droid
 				e.OldElement.OnStopRecording -= OnStopRecording; //unsubscribe from stop recording event in xamarin.forms control
 				e.OldElement.OnStopPreviewing -= OnStopPreviewing;
 				e.OldElement.OnStartPreviewing -= OnStartPreviewing;
-																 
+
 			}
 			if (e.NewElement != null)
 			{
@@ -64,10 +63,6 @@ namespace XamarinVideoRecorder.Droid
 
 		protected override void Dispose(bool disposing)
 		{
-			if (disposing)
-			{
-				Control.camera.Release();
-			}
 			base.Dispose(disposing);
 		}
 	}

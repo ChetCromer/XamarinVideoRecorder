@@ -359,5 +359,23 @@ namespace XamarinVideoRecorder.Droid
 			System.Diagnostics.Debug.WriteLine("GetOptimalPreviewSize: W{0}/H{0}", optimalSize.Height, optimalSize.Width);
 			return optimalSize;
 		}
+
+		protected override void Dispose(bool disposing)
+		{
+			base.Dispose(disposing);
+
+			try
+			{
+				if (disposing)
+				{
+					camera.Release();
+				}
+			}
+			catch (Exception ex)
+			{
+
+			}
+
+		}
 	}
 }
