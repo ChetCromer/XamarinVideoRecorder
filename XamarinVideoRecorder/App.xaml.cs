@@ -8,7 +8,7 @@ namespace XamarinVideoRecorder
 		{
 			InitializeComponent();
 			//MainPage = new ContentPage();
-			MainPage = new XamarinVideoRecorderPage();
+			MainPage = new NavigationPage(new XamarinVideoRecorderPage());
 		}
 
 		protected override void OnStart()

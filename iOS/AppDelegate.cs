@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using Octane.Xam.VideoPlayer.iOS;
 using UIKit;
 
 namespace XamarinVideoRecorder.iOS
@@ -13,6 +14,9 @@ namespace XamarinVideoRecorder.iOS
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
 			global::Xamarin.Forms.Forms.Init();
+
+			//Init the video player
+			FormsVideoPlayer.Init(); //com.dailyaudiobible.gbrapp
 
 			LoadApplication(new App());
 

@@ -7,12 +7,15 @@
   </ContentPage.Padding>
 	
 	<StackLayout VerticalOptions="FillAndExpand">
-		<StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal" Padding="10" MinimumHeightRequest="50">
+		<StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal" Padding="10" MinimumHeightRequest="50">
 			<Button Text="Start Preview" Clicked="Handle_StartPreviewing" />
 			<Button Text="Start Record" Clicked="Handle_StartRecording" />
 			<Button Text="Stop Record" Clicked="Handle_StopRecording" />
 			<Button Text="Stop Preview" Clicked="Handle_StopPreviewing" />
 		</StackLayout>
 		<local:VideoRecorder x:Name="video" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Orientation="Landscape" Camera="Front"/>
+		<StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal" Padding="10" MinimumHeightRequest="50">
+		<Button Text="Play Video" Clicked="Handle_PlayVideo"/>
+		</StackLayout>
 	</StackLayout>
 </ContentPage>

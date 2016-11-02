@@ -7,6 +7,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Octane.Xam.VideoPlayer.Android;
 
 namespace XamarinVideoRecorder.Droid
 {
@@ -21,6 +22,11 @@ namespace XamarinVideoRecorder.Droid
 			base.OnCreate(bundle);
 
 			global::Xamarin.Forms.Forms.Init(this, bundle);
+
+
+			//Init the video player
+			FormsVideoPlayer.Init(); //com.dailyaudiobible.gbr (iOS is .gbrapp)
+
 
 			LoadApplication(new App());
 		}

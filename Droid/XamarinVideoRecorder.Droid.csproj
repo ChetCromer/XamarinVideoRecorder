@@ -81,6 +81,12 @@
     <Reference Include="Xamarin.Forms.Xaml">
       <HintPath>..\packages\Xamarin.Forms.2.3.1.114\lib\MonoAndroid10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
+    <Reference Include="Octane.Xam.VideoPlayer.Android">
+      <HintPath>..\packages\Octane.Xam.VideoPlayer.1.2.1.0\lib\MonoAndroid10\Octane.Xam.VideoPlayer.Android.dll</HintPath>
+    </Reference>
+    <Reference Include="Octane.Xam.VideoPlayer">
+      <HintPath>..\packages\Octane.Xam.VideoPlayer.1.2.1.0\lib\MonoAndroid10\Octane.Xam.VideoPlayer.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XamarinVideoRecorder\XamarinVideoRecorder.csproj">
