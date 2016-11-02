@@ -15,6 +15,8 @@ namespace XamarinVideoRecorder.Droid
 {
 	public sealed class AndroidVideoRecorder : ViewGroup, ISurfaceHolderCallback
 	{
+		CameraOptions CameraOption;
+		OrientationOptions OrientationOption;
 		VideoRecorder XamRecorder;
 		SurfaceView surfaceView;
 		ISurfaceHolder holder;
@@ -46,11 +48,13 @@ namespace XamarinVideoRecorder.Droid
 		}
 
 
-		public AndroidVideoRecorder(Context context, VideoRecorder CrossPlatformRecorder)
+		public AndroidVideoRecorder(Context context, VideoRecorder CrossPlatformRecorder, CameraOptions cameraOption, OrientationOptions orientationOption)
 			: base(context)
 		{
-
+			//Store references of recorder and options for later use
 			XamRecorder = CrossPlatformRecorder;
+			CameraOption = cameraOption;
+			OrientationOption = orientationOption;
 
 			if (IsCameraAvailable)
 			{
@@ -71,44 +75,69 @@ namespace XamarinVideoRecorder.Droid
 
 		}
 
-		private void InitCamera()
+
+		private bool OpenCamera(int id)
 		{
-			//Get a reference for the camera
-			//Open  the camera
+			//Optns a camera and return true/false if it worked.
 			try
 			{
-				//Try to open camera 1 (assume face camera for now)
-				cameraId = 1;
-				//Don't forget to add your permissions to the manifest or this will cause an excepiotion
-				camera = Camera.Open(cameraId);
+				camera = Camera.Open(id);
+				cameraId = id;
+				return true;
 			}
-			catch (Exception exNoCamera1)
+			catch (Exception ex)
 			{
-				try
-				{
-					//Try to open camera 0 (assume rear camera)
-					cameraId = 0;
-					camera = Camera.Open(cameraId);
-				}
-				catch (Exception exNoCamera0)
-				{
-					//Other exception - can't open a camera
-					throw (exNoCamera0);
-				}
+				return false;
 			}
+		}
 
-			//Force the camera orientation (may need a different value here)
-			if (Device.Idiom == TargetIdiom.Tablet)
+		private void InitCamera()
+		{
+			bool success = false;
+
+			//OPEN THE APPROPRIATE CAMERA
+			if (CameraOption == CameraOptions.Front)
 			{
-				//Don't rotate image - assume landscape on tablets
-				camera.SetDisplayOrientation(0);
+				success = OpenCamera(1); //Try the face camera
+				if (success == false)
+				{
+					success = OpenCamera(0); //Try the rear camera
+				}
 			}
 			else {
-				//Rotate camera - assume portrait
-				camera.SetDisplayOrientation(90);
+				success = OpenCamera(0); //Try the rear camera
 			}
 
-			//Get the camera's supported preview sizesnow.
+			if (success = false)
+			{
+				throw new Exception("Unable to open camera.");
+			}
+
+			//GET THE CORRECT CAMERA ORIENTATION
+			if (OrientationOption == OrientationOptions.Landscape)
+			{
+				//Landscape
+				if (Device.Idiom == TargetIdiom.Tablet)
+				{
+					camera.SetDisplayOrientation(0);
+				}
+				else {
+					camera.SetDisplayOrientation(90);
+				}
+			}
+			else {
+				//Portrait
+				if (Device.Idiom == TargetIdiom.Tablet)
+				{
+					camera.SetDisplayOrientation(270);
+				}
+				else {
+					camera.SetDisplayOrientation(0);
+				}
+
+			}
+
+			//FIND BEST SIZE FOR RECORDER
 			var parameters = camera.GetParameters();
 			supportedPreviewSizes = parameters.SupportedPreviewSizes;
 			RequestLayout();

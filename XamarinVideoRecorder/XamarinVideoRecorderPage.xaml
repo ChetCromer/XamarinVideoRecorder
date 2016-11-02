@@ -7,6 +7,6 @@
 			<Button Text="Stop Record" Clicked="Handle_StopRecording" />
 			<Button Text="Stop Preview" Clicked="Handle_StopPreviewing" />
 		</StackLayout>
-		<local:VideoRecorder x:Name="video" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+		<local:VideoRecorder x:Name="video" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Orientation="Landscape" Camera="Front"/>
 	</StackLayout>
 </ContentPage>

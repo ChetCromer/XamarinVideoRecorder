@@ -20,10 +20,19 @@ namespace XamarinVideoRecorder
 		Front
 	}
 
+	public enum OrientationOptions
+	{
+		Landscape, 
+		Portrait
+	}
+
 	public class VideoRecorder : View
 	{
 		public static readonly BindableProperty CameraProperty =
 			BindableProperty.Create<VideoRecorder, CameraOptions>(p => p.Camera, CameraOptions.Rear);
+
+		public static readonly BindableProperty OrientationProperty =
+			BindableProperty.Create<VideoRecorder, OrientationOptions>(p => p.Orientation, OrientationOptions.Landscape);
 
 		public string VideoFileName { get; set; }
 
@@ -31,6 +40,18 @@ namespace XamarinVideoRecorder
 		{
 			get { return (CameraOptions)GetValue(CameraProperty); }
 			set { SetValue(CameraProperty, value); }
+		}
+
+		public OrientationOptions Orientation
+		{
+			get
+			{
+				return (OrientationOptions)GetValue(OrientationProperty);
+			}
+			set
+			{
+				SetValue(OrientationProperty, value);
+			}
 		}
 
 		public EventHandler OnStartRecording;

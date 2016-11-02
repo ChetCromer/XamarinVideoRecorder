@@ -18,7 +18,7 @@ namespace XamarinVideoRecorder.Droid
 
 			if (Control == null)
 			{
-				recorder = new AndroidVideoRecorder(Context, e.NewElement);
+				recorder = new AndroidVideoRecorder(Context, e.NewElement,e.NewElement.Camera,e.NewElement.Orientation);
 				SetNativeControl(recorder);
 			}
 
