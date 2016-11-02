@@ -153,11 +153,11 @@ namespace XamarinVideoRecorder.Droid
 
 		public void StartRecording(object sender, EventArgs e)
 		{
-			//Make sure we're in a good state before we start recording
-			if (!XamRecorder.IsPreviewing)
-			{
-				throw new Exception("You can't start recording until you are previewing.");
-			}
+			////Make sure we're in a good state before we start recording
+			//if (!XamRecorder.IsPreviewing)
+			//{
+			//	throw new Exception("You can't start recording until you are previewing.");
+			//}
 
 			if (XamRecorder.IsRecording)
 			{
@@ -181,17 +181,20 @@ namespace XamarinVideoRecorder.Droid
 
 				//Start recording
 				recorder = new MediaRecorder();
+				camera.Unlock();
+				recorder.SetCamera(camera);
 				recorder.SetVideoSource(VideoSource.Camera);
-				recorder.SetAudioSource(AudioSource.Default);
-				recorder.SetProfile(CamcorderProfile.Get(cameraId, CamcorderQuality.Low));
-				//recorder.SetVideoEncoder(VideoEncoder.Default);
-				//recorder.SetAudioEncoder(AudioEncoder.Default);
+				recorder.SetAudioSource(AudioSource.Mic);
+				recorder.SetProfile(CamcorderProfile.Get(cameraId, CamcorderQuality.High));
+				//recorder.SetVideoEncoder(VideoEncoder.Default); //Also tried default
+				//recorder.SetAudioEncoder(AudioEncoder.Default); //Also tried default
 				//recorder.SetOutputFormat(OutputFormat.Mpeg4);
 				recorder.SetOutputFile(filename);
 
-				recorder.SetPreviewDisplay(holder.Surface); //Not sure if we want this or not since preview is already going.
-
-				//camera.Unlock();
+				if (! XamRecorder.IsPreviewing)
+				{
+					recorder.SetPreviewDisplay(holder.Surface); //Only doing this is not already previewing camera
+				}
 
 				recorder.Prepare();
 				recorder.Start();
@@ -220,6 +223,9 @@ namespace XamarinVideoRecorder.Droid
 				recorder.Release();
 			}
 			XamRecorder.IsRecording = false;
+
+			FileInfo fil = new FileInfo(XamRecorder.VideoFileName);
+			System.Diagnostics.Debug.WriteLine("File is ready: {0} {1} bytes", fil.FullName, fil.Length.ToString());
 
 		}
 
