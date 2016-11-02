@@ -182,15 +182,16 @@ namespace XamarinVideoRecorder.Droid
 				//Start recording
 				recorder = new MediaRecorder();
 				recorder.SetVideoSource(VideoSource.Camera);
-				recorder.SetAudioSource(AudioSource.Mic);
-				//recorder.SetProfile(CamcorderProfile.Get(cameraId, CamcorderQuality.High));
-				//recorder.SetPreviewDisplay(holder.Surface); //Not sure if we want this or not since preview is already going.
-				recorder.SetOutputFormat(OutputFormat.Mpeg4);
-				recorder.SetVideoEncoder(VideoEncoder.Default);
-				recorder.SetAudioEncoder(AudioEncoder.Default);
+				recorder.SetAudioSource(AudioSource.Default);
+				recorder.SetProfile(CamcorderProfile.Get(cameraId, CamcorderQuality.Low));
+				//recorder.SetVideoEncoder(VideoEncoder.Default);
+				//recorder.SetAudioEncoder(AudioEncoder.Default);
+				//recorder.SetOutputFormat(OutputFormat.Mpeg4);
 				recorder.SetOutputFile(filename);
 
-				camera.Unlock();
+				recorder.SetPreviewDisplay(holder.Surface); //Not sure if we want this or not since preview is already going.
+
+				//camera.Unlock();
 
 				recorder.Prepare();
 				recorder.Start();
