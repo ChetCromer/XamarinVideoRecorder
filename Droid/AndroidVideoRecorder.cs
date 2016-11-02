@@ -138,6 +138,11 @@ namespace XamarinVideoRecorder.Droid
 
 		public void StopPreviewing(object sender, EventArgs e)
 		{
+			if (XamRecorder.IsRecording)
+			{
+				throw new Exception("You can't stop previewing while you're recording.");
+			}
+
 			if (XamRecorder.IsPreviewing)
 			{
 				//Stop the preview
@@ -191,10 +196,7 @@ namespace XamarinVideoRecorder.Droid
 				//recorder.SetOutputFormat(OutputFormat.Mpeg4);
 				recorder.SetOutputFile(filename);
 
-				if (! XamRecorder.IsPreviewing)
-				{
-					recorder.SetPreviewDisplay(holder.Surface); //Only doing this is not already previewing camera
-				}
+				recorder.SetPreviewDisplay(holder.Surface); 
 
 				recorder.Prepare();
 				recorder.Start();
@@ -205,6 +207,7 @@ namespace XamarinVideoRecorder.Droid
 				sample.CopyTo(filename);
 			}
 
+			XamRecorder.IsPreviewing = true;
 			XamRecorder.IsRecording = true;
 		}
 
