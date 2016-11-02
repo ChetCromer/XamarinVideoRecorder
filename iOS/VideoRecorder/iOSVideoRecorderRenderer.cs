@@ -28,6 +28,7 @@ namespace XamarinVideoRecorder.iOS
 				e.OldElement.OnStopRecording -= OnStopRecording; //unsubscribe from stop recording event in xamarin.forms control
 				e.OldElement.OnStopPreviewing -= OnStopPreviewing;
 				e.OldElement.OnStartPreviewing -= OnStartPreviewing;
+				e.OldElement.OnDoCleanup -= OnDoCleanup;
 
 			}
 			if (e.NewElement != null)
@@ -37,6 +38,7 @@ namespace XamarinVideoRecorder.iOS
 				e.NewElement.OnStopRecording += OnStopRecording;//subscribe from stop recording event in xamarin.forms control
 				e.NewElement.OnStartPreviewing += OnStartPreviewing;
 				e.NewElement.OnStopPreviewing += OnStopPreviewing;
+				e.NewElement.OnDoCleanup += OnDoCleanup;
 
 				//cameraPreview.Click += OnCameraPreviewClicked;
 			}
@@ -57,6 +59,11 @@ namespace XamarinVideoRecorder.iOS
 		void OnStopPreviewing(object sender, EventArgs e)
 		{
 			recorder.StopPreviewing(sender, e);
+		}
+
+		void OnDoCleanup(object sender, EventArgs e)
+		{
+			recorder.DoCleanup(sender, e);
 		}
 
 

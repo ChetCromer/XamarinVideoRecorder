@@ -22,7 +22,7 @@ namespace XamarinVideoRecorder
 
 	public enum OrientationOptions
 	{
-		Landscape, 
+		Landscape,
 		Portrait
 	}
 
@@ -58,6 +58,7 @@ namespace XamarinVideoRecorder
 		public EventHandler OnStopRecording;
 		public EventHandler OnStartPreviewing;
 		public EventHandler OnStopPreviewing;
+		public EventHandler OnDoCleanup;
 
 		public bool IsPreviewing { get; set; }
 		public bool IsRecording { get; set; }
@@ -95,6 +96,15 @@ namespace XamarinVideoRecorder
 			if (OnStopPreviewing != null)
 			{
 				OnStopPreviewing(this, new EventArgs());
+			}
+		}
+
+		//Do cleanup
+		public void DoCleanup()
+		{
+			if (OnDoCleanup != null)
+			{
+				OnDoCleanup(this, new EventArgs());
 			}
 		}
 	}

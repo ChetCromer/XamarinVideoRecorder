@@ -225,7 +225,7 @@ namespace XamarinVideoRecorder.Droid
 				//recorder.SetOutputFormat(OutputFormat.Mpeg4);
 				recorder.SetOutputFile(filename);
 
-				recorder.SetPreviewDisplay(holder.Surface); 
+				recorder.SetPreviewDisplay(holder.Surface);
 
 				recorder.Prepare();
 				recorder.Start();
@@ -261,6 +261,29 @@ namespace XamarinVideoRecorder.Droid
 
 		}
 
+		public void DoCleanup(object sender, EventArgs e)
+		{
+
+			if (XamRecorder.IsPreviewing || XamRecorder.IsRecording)
+			{
+				throw new Exception("You can't do cleanup while you are previewing or recording.");
+			}
+
+			try
+			{
+				//Clean things up so we don't have s surface stuck on top of other surfaces later.
+				holder.RemoveCallback(this);
+				holder = null;
+				RemoveView(surfaceView);
+				surfaceView = null;
+			}
+			catch (Exception ex)
+			{
+
+			}
+
+		}
+
 		protected override void OnMeasure(int widthMeasureSpec, int heightMeasureSpec)
 		{
 			System.Diagnostics.Debug.WriteLine("OnMeasure");
@@ -276,11 +299,14 @@ namespace XamarinVideoRecorder.Droid
 
 		protected override void OnLayout(bool changed, int l, int t, int r, int b)
 		{
-			System.Diagnostics.Debug.WriteLine("OnLayout");
-			var msw = MeasureSpec.MakeMeasureSpec(r - l, MeasureSpecMode.Exactly);
-			var msh = MeasureSpec.MakeMeasureSpec(b - t, MeasureSpecMode.Exactly);
-			surfaceView.Measure(msw, msh);
-			surfaceView.Layout(0, 0, r - l, b - t);
+			if (surfaceView != null)
+			{
+				System.Diagnostics.Debug.WriteLine("OnLayout");
+				var msw = MeasureSpec.MakeMeasureSpec(r - l, MeasureSpecMode.Exactly);
+				var msh = MeasureSpec.MakeMeasureSpec(b - t, MeasureSpecMode.Exactly);
+				surfaceView.Measure(msw, msh);
+				surfaceView.Layout(0, 0, r - l, b - t);
+			}
 		}
 
 		public void SurfaceCreated(ISurfaceHolder holder)

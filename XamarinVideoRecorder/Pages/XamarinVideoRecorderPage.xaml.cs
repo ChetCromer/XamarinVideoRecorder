@@ -31,6 +31,7 @@ namespace XamarinVideoRecorder
 
 		void Handle_PlayVideo(object sender, System.EventArgs e)
 		{
+			video.DoCleanup();
 			Navigation.PushAsync(new XamarinVideoPlaybackPage(video.VideoFileName));
 		}
 

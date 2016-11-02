@@ -238,6 +238,10 @@ namespace XamarinVideoRecorder.iOS
 
 		}
 
+		public void DoCleanup(object sender, EventArgs e)
+		{
+			//Nothing really to do on iOS, is there?
+		}
 
 		protected override void Dispose(bool disposing)
 		{
