@@ -25,7 +25,7 @@ namespace XamarinVideoRecorder.Droid
 
 
 			//Init the video player
-			FormsVideoPlayer.Init(); //com.dailyaudiobible.gbr (iOS is .gbrapp)
+			FormsVideoPlayer.Init();
 
 
 			LoadApplication(new App());
