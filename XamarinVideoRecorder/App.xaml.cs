@@ -7,7 +7,7 @@ namespace XamarinVideoRecorder
 		public App()
 		{
 			InitializeComponent();
-
+			//MainPage = new ContentPage();
 			MainPage = new XamarinVideoRecorderPage();
 		}
 
