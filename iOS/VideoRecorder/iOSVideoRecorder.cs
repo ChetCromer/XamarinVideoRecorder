@@ -37,9 +37,6 @@ namespace XamarinVideoRecorder.iOS
 			CameraOption = cameraOption;
 			OrientationOption = orientationOption;
 
-			//Set up a new AV capture session
-			session = new AVCaptureSession(); //Set up a new session
-
 			//register for rotation events
 			rotationNotifation = NSNotificationCenter.DefaultCenter.AddObserver(UIDevice.OrientationDidChangeNotification, RotationCallback);
 
@@ -85,6 +82,9 @@ namespace XamarinVideoRecorder.iOS
 				{
 					return;
 				}
+
+				//Set up a new AV capture session
+				session = new AVCaptureSession(); //Set up a new session
 
 				//add video capture device
 				var videoDevices = AVCaptureDevice.DevicesWithMediaType(AVMediaType.Video);
